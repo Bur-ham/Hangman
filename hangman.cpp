@@ -3,6 +3,7 @@
 #include <vector>
 #include <set>
 
+#include "utils.h"
 
 std::vector<std::string> getWords() {
     std::string tempWord;
@@ -57,12 +58,12 @@ int main() {
     int wrongGuessCount = 0;
     bool isGameOver = false;
     while (!isGameOver) {
-        std::cout << "-----------------------------------------------------" << std::endl;
+        std::cout << "=======================================================\n";
         std::string guess;
         std::cout << std::endl;
-        std::cout << "Current Incorrect Guesses: " << wrongGuessCount << std::endl;
+        std::cout << makeHangman(wrongGuessCount) << std::endl;
         printWordScores(word, guessedSet);
-        if (wrongGuessCount == 3) {
+        if (wrongGuessCount == MAX_GUESSES) {
             std::cout << "You lost!" << std::endl;
             std::cout << "The word was: " << word << std::endl;
             isGameOver = true;
@@ -90,7 +91,6 @@ int main() {
             wordSet.erase(guess[0]);
         } else {
             wrongGuessCount++;
-            clearScreen();
         }
 
         guessedSet.insert(guess[0]);
